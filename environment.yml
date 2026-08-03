@@ -1,0 +1,27 @@
+
+name: project-environment
+channels:
+  - conda-forge #i believe this is where python pulls packages from if doing conda installs. 
+  - defaults
+dependencies:
+  - python=3.11 #these are the packages (i usually call them libraries) the project will need
+  - numpy=1.26.4 #The original package specifics will be overwritten after first run
+  - scipy=1.14.1
+  - pandas
+  - matplotlib
+  - flake8
+  - pytest
+  - scikit-learn
+  - pip
+
+
+# For the first time setting dependencies (or updating them):
+# 1. Write code 
+# 2. Run 'conda install numpy scipy pandas' and  'pip install scikit-gstat' to install packages, 
+#    as needed (conda install rather than pip for the general packages to keep things organized with the YAML)  
+# 3. Then pin the exact dependencies using  'conda env export --no-builds > environment.yml' - it updates the yaml
+#then stage and commit as usual
+#these dependencies from the env file will be utilized each time the CI workflow runs.
+
+# In the case that the script needs to re-sync wth this env file: conda env create -f environment.yml
+# Note: spaces in this file are not standard

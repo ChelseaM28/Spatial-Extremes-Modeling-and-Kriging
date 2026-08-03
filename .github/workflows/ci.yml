@@ -1,0 +1,31 @@
+name: continuous-integration
+
+on: #"Whenever..."
+  push: #"I push..."
+    branches: [main] #"To the main branch.."
+  pull_request: #"Or pull..."
+    branches: [main] #"From the main branch..."
+
+
+jobs: #"The CI workflow's job is tasked with..."
+  test: #"Testing code..."
+    runs-on: ubuntu-latest #"Using a virtual machine, "
+
+    steps: #"By... "
+      - name: Check out repository #"Doing a step called 'Check out repository,' "
+        uses: actions/checkout@v4 #"Which pulls my code into the virtual machine (Ubuntu), "
+
+      - name: Set up conda environment #"Doing a step called 'Set up conda env,' "
+        uses: conda-incubator/setup-miniconda@v3 #"Which sets up the VM env... "
+        with: #"By referenceing"
+          environment-file: environment.yml #"My YAML file"
+          activate-environment: project-environment #"Which i already named 'project-environment'"
+          auto-activate-base: false
+
+      - name: Lint with flake8 #"And doing other software engineering-flavored things."
+        shell: bash -l {0}
+        run: flake8 src
+
+      - name: Run tests with pytest
+        shell: bash -l {0}
+        run: pytest
