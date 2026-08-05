@@ -6,6 +6,8 @@
 #               computing and plotting the empirical semivariogram.
 # * - * - * - * - * - * - * - * - * - * - * - * - * - * - * -
 
+from common.base import Plotting
+
 # Not all of these methods will be performed, as the scope of the project will need to be limited.
 class SourcesOfUnreliability:
     def __init__(self, data_object):
