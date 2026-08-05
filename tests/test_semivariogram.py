@@ -12,7 +12,7 @@
 #   flake8 src
 
 def test_print_statement():
-    test_finished = TRUE
+    test_finished = True
 
     assert test_finished
 
