@@ -16,15 +16,13 @@ class Preprocessing:
 
     def pairwise_distance_computation(self):
         pass
-    
+
 
 class Plotting:
     def __init__(self, passed_data):
         self.passed_data = passed_data
 
-
     def plot_passed_data(self):
-        #some function using the passed data. Will be used for ALL graphs, not just semivoriogram.
-        #if this adds unnecessary complexity, I will not use this.
+        # some function using the passed data. Will be used for ALL graphs, not just semivoriogram.
+        # if this adds unnecessary complexity, I will not use this.
         pass
-

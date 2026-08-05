@@ -2,10 +2,11 @@
 # Author : Chelsea Momoh
 # Date : 2026-08-03
 # Version : 1.0
-# Description : This script contains classes and methods for computing and plotting the empirical semivariogram.
+# Description : This script contains classes and methods for 
+#               computing and plotting the empirical semivariogram.
 # * - * - * - * - * - * - * - * - * - * - * - * - * - * - * -
 
-#Not all of these methods will be performed, as the scope of the project will need to be limited.
+# Not all of these methods will be performed, as the scope of the project will need to be limited.
 class SourcesOfUnreliability:
     def __init__(self, data_object):
         self.data_object = data_object
@@ -16,7 +17,7 @@ class SourcesOfUnreliability:
     def lag_interval_and_bin_width(self):
         pass
 
-    def marginal distribution(self):
+    def marginal_distribution(self):
         pass
 
     def outliers(self):
@@ -30,6 +31,7 @@ class SourcesOfUnreliability:
     def trend(self):
         pass
 
+
 class EmpiricalSemivariogram:
     def __init__(self, data_object):
         self.data_object = data_object
@@ -37,13 +39,14 @@ class EmpiricalSemivariogram:
     def compute_empirical_semivariogram(self):
         pass
 
+
 class PlotEmpiricalSemivariogram:
     def __init__(self, data_object):
         self.data_object = data_object
         self.passed_to_plotting_class = None
 
     def plot_empirical_semivariogram(self):
-        self. passed_to_plotting_class # = some operation
+        #self.passed_to_plotting_class = some operation
         Plotting(self.passed_to_plotting_class).plot_passed_data()
         print("Empirical Semivariogram plotted. Check output folder > graphics for the graph.")
         pass

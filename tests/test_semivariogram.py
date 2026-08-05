@@ -5,8 +5,14 @@
 # Description : Test script for empirical semivariogram.
 # * - * - * - * - * - * - * - * - * - * - * - * - * - * - * -
 
+# to test my tests locally:
+# conda activate project-environment
+# flake8 src
+
+#   flake8 src
 
 def test_print_statement():
-    test_finished = "Yankee Doodle Went to Town. "
+    test_finished = TRUE
+
     assert test_finished
 
