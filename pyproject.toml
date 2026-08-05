@@ -1,0 +1,19 @@
+# This file should define where to find files, especially useful for cross-project module imports
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spatial-geostatistics-analysis"
+version = "0.1.0"
+description = "Kriging and spatial extremes analysis of earthquake ground-motion data"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

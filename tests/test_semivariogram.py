@@ -9,10 +9,6 @@
 # conda activate project-environment
 # flake8 src
 
-#   flake8 src
-
 def test_print_statement():
     test_finished = True
-
     assert test_finished
-
