@@ -1,6 +1,6 @@
 # Spatial-Geostatistics-Analysis
 
-## WIP - Expected completion September 20, 2026.
+## WIP - Expected completion No Later Than September 20, 2026.
 
 Reproducible spatial correlation modeling and spatial tail dependence analysis pipeline. 
 ---
