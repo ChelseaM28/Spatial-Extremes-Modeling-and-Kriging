@@ -17,11 +17,17 @@ class DataHandler:
 
     def clean_data(self, dataframe):
         # Figure how to handle missing data and data types. No outlier detection in this step.
-        # self.dataframe = drop na
-        # other cleaning steps added here
+        self.dataframe = self.dataframe.dropna()
+        self.dataframe.columns = self.dataframe.columns.str.strip().str.lower().str.replace(' ', '_', regex=True)   
+        self.dataframe = self.dataframe.astype(
+            {'earthquake_name': str, 'station_name': str, 'station_id_no.': str, 
+            'station_latitude': float, 'station_longitude': float,
+            'epid_(km)': float, 'pga_(g)': float}
+            )  # EpiD is 'epicenter distance.' 
+        # I believe these are all the columns I need, though I may update it.
         return self.dataframe
 
-    def test_clean_data(self):
+    def test_clean_data(self):  # I should probably somehow write this into my pytest instead. 
         self.tested_cleaned_data = self.clean_data(self.mini_dataframe)
         # This will print, in terminal, about 10 rows of the dataframe after a test cleaning process.
         print(f"Cleaned First Ten Rows of Dataset. \noriginal dataset is unmodified:\n{self.tested_cleaned_data}")
@@ -32,7 +38,9 @@ class DataHandler:
     def filter_to_earthquake(self):
         # This function will find the earthquake with the most stations reporting data.
         # It will return the earthquake ID and the number of stations reporting data.
-        # self.dataframe = #some operation to choose earthquake. Can be in one line if it's simple
+        counts = self.dataframe.groupby('earthquake_name')['station_id_no.'].count()
+        best_earthquake = counts.idxmax()  # I use station IDs because they are simple to parse and unique.
+        self.dataframe = self.dataframe[(self.dataframe['earthquae_name'] == str(best_earthquake))]
         self.filtered = self.dataframe
         return self.filtered
 

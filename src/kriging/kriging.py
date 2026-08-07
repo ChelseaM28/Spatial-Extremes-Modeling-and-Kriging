@@ -7,7 +7,7 @@
 # * - * - * - * - * - * - * - * - * - * - * - * - * - * - * -
 
 class OrdinaryKriging:
-    def __init__(self, covariance_models):
+    def __init__(self, covariance_model):
         pass
 
     def kriging_neighborhood(self):

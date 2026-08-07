@@ -11,8 +11,11 @@ import numpy as np
 
 # Not all of these methods will be performed, as the scope of the project will need to be limited.
 class SourcesOfUnreliability:
-    def __init__(self, data_object):
+    def __init__(self, data_object, location_pairs, GMM_predictions):
         self.data_object = data_object
+        self.station_ids = self.data_object['station_ids']
+        self.location_pairs = location_pairs
+        self.GMM_predictions = GMM_predictions
 
     def sample_size(self):
         pass
@@ -24,9 +27,12 @@ class SourcesOfUnreliability:
         pass
 
     def outliers(self):
+        self.GMM_predictions = Preprocessing.detect_outliers(
+            self.data_object, self.location_pairs, self.GMM_predictions
+            )
         #NOTE: This is already a function in the preprocessing class. 
         #Later, I will decide whether to skip this or just reference the class in this method
-        pass
+        return self.GMM_predictions
 
     def anisotropy(self):
         pass
@@ -38,9 +44,7 @@ class SourcesOfUnreliability:
 class EmpiricalSemivariogram:
     def __init__(self, filtered_data_object): 
         self.data_object = filtered_data_object  # Filtered to chosen earhquake only + outliers removed.
-        self.locations = []
         self.location_pairs = []  # Will likely be location pair coordinates... I think.
-        self.location_pair_distances = Preprocessing.pairwise_distance_computation(self.data_object)
         # I am using peak ground acceleration as my parameter of interest with the 
         # assumption that professionals in industry would find this metric more useful.
         # It is "a natural simple design parameter since it can be related 
@@ -56,10 +60,15 @@ class EmpiricalSemivariogram:
     def construct_GMM(self):
         # Model construction belongs here.
         # self.PGA_predicted for each station is updated --> given by GMM models
+        uncorrected_GMM_model_output = []
+        self.PGA_predicted = SourcesOfUnreliability.outliers(
+            self.data_object, self.location_pairs, uncorrected_GMM_model_output
+            )
         # self.station_variance for each station is updated --> given by GMM models
         # These may end up being rearranged into tuples of pairs OR a dictionary
 
-        # Now I need a residual for each station pair.
+        # Now I need ε˜, "the sum of the intra-event residual (εi) and inter-event residual (η) 
+        # normalized by the standard deviation of the intra-event residual (σi).
         for station_1, station_2 in self.location_pairs:
             self.residuals_sum.append(
                 ((self.log_PGA_true[station_1]-np.log(self.PGA_predicted[station_1]))/self.station_variance[station_1]), 
@@ -69,16 +78,20 @@ class EmpiricalSemivariogram:
 
     def compute_empirical_semivariogram(self): 
         # I need to check when this one is supposed to be used.
-        self.semivariogram = 0.5*(1/len(self.station_pairs))*sum(self.residuals_sum)**2
+        self.semivariogram = 0.5*(1/len(self.location_pairs))*sum(self.residuals_sum)**2
         return self.semivariogram
 
-    def spherical_empirical_semivariogram(self):
+    # methods for fitting a covariance model to the semivariogram via WLS.
+    def spherical_model(self):
         pass
     
-    def exponential_empirical_semivariogram(self):
+    def exponential_model(self):
         pass
 
-    def power_empirical_semivariogram(self):
+    def power_empirical_model(self):
+        pass
+
+    def choose_covariance_model(self):
         pass
 
 
